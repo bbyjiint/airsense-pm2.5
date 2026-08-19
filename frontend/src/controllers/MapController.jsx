@@ -158,7 +158,7 @@ function MapController({ onGoHome }) {
       setError('');
 
       const response = await fetch(
-        `${API_URL}/api/readings/latest-all`
+        '/api/readings/latest-all'
       );
 
       if (!response.ok) {
