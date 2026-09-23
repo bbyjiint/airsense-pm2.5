@@ -6,9 +6,18 @@ import devicesRouter from "./modules/devices/devices.routes.js";
 import readingsRouter from "./modules/readings/readings.routes.js";
 
 const app = express();
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 4000;
 
-app.use(cors());
+// CORS Configuration
+const corsOrigin = process.env.CORS_ORIGIN;
+const corsOptions = {
+  origin: corsOrigin && corsOrigin !== "*"
+    ? corsOrigin.split(",").map((origin) => origin.trim())
+    : "*",
+  credentials: true
+};
+
+app.use(cors(corsOptions));
 app.use(express.json());
 
 app.get("/", (req, res) => {

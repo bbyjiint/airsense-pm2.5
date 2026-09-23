@@ -9,9 +9,13 @@ const poolConfig = process.env.DATABASE_URL
       user: process.env.DB_USER || "root",
       password: process.env.DB_PASSWORD || "",
       database: process.env.DB_NAME || "airsense_db",
-      waitForConnections: true,
-      connectionLimit: 10,
-      queueLimit: 0
+      waitForConnections: process.env.DB_WAIT_FOR_CONNECTIONS !== "false",
+      connectionLimit: Number(process.env.DB_CONNECTION_LIMIT) || 10,
+      maxIdle: Number(process.env.DB_MAX_IDLE) || 10,
+      idleTimeout: Number(process.env.DB_IDLE_TIMEOUT) || 60000,
+      queueLimit: Number(process.env.DB_QUEUE_LIMIT) || 0,
+      enableKeepAlive: true,
+      keepAliveInitialDelay: 0
     };
 
 const pool = mysql.createPool(poolConfig);

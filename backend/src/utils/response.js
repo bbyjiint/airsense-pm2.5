@@ -53,7 +53,17 @@ export const httpErrors = {
     createAppError(message, 503, details)
 };
 
-export function sendSuccess(res, { data = null, message = null, statusCode = 200 } = {}) {
+export function sendSuccess(res, { data = null, message = null, pagination = null, statusCode = 200 } = {}) {
+  // หากมี pagination หรือ code ชัดเจน หรือระบุรูปแบบ full envelope
+  if (pagination !== null) {
+    return res.status(statusCode).json({
+      code: statusCode,
+      message: message || "Success",
+      data: data ?? [],
+      pagination
+    });
+  }
+
   if (data !== null && !message) {
     return res.status(statusCode).json(data);
   }
