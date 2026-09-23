@@ -20,4 +20,25 @@ const poolConfig = process.env.DATABASE_URL
 
 const pool = mysql.createPool(poolConfig);
 
+/**
+ * Execute callback within a database transaction
+ * @template T
+ * @param {(connection: import("mysql2/promise").PoolConnection) => Promise<T>} callback
+ * @returns {Promise<T>}
+ */
+export async function withTransaction(callback) {
+  const connection = await pool.getConnection();
+  await connection.beginTransaction();
+  try {
+    const result = await callback(connection);
+    await connection.commit();
+    return result;
+  } catch (error) {
+    await connection.rollback();
+    throw error;
+  } finally {
+    connection.release();
+  }
+}
+
 export default pool;
