@@ -1,9 +1,9 @@
 -- ========================================================
--- AirSense PM2.5 MySQL Schema
+-- AirSense PM2.5 MySQL Schema (UUIDv7 Primary Keys)
 -- ========================================================
 
 CREATE TABLE IF NOT EXISTS devices (
-  id INT AUTO_INCREMENT PRIMARY KEY,
+  id VARCHAR(36) PRIMARY KEY,
   device_code VARCHAR(100) NOT NULL UNIQUE,
   name VARCHAR(255) NOT NULL,
   location_name VARCHAR(255) NULL,
@@ -14,8 +14,8 @@ CREATE TABLE IF NOT EXISTS devices (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 CREATE TABLE IF NOT EXISTS readings (
-  id INT AUTO_INCREMENT PRIMARY KEY,
-  device_id INT NOT NULL,
+  id VARCHAR(36) PRIMARY KEY,
+  device_id VARCHAR(36) NOT NULL,
   pm25 DECIMAL(6, 2) NOT NULL,
   temperature DECIMAL(5, 2) NOT NULL,
   humidity DECIMAL(5, 2) NOT NULL,

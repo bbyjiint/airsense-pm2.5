@@ -1,6 +1,7 @@
 import { readingsRepository } from "./readings.repository.js";
 import { devicesRepository } from "../devices/devices.repository.js";
 import { httpErrors } from "../../utils/response.js";
+import { generateUUIDv7 } from "../../utils/uuid.js";
 
 export const readingsService = {
   async getLatestAll() {
@@ -13,6 +14,13 @@ export const readingsService = {
       throw httpErrors.notFound("Device not found");
     }
 
-    return await readingsRepository.create(device.id, dto);
+    const id = generateUUIDv7();
+    return await readingsRepository.create({
+      id,
+      deviceId: device.id,
+      pm25: dto.pm25,
+      temperature: dto.temperature,
+      humidity: dto.humidity
+    });
   }
 };

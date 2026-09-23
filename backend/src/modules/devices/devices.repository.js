@@ -13,7 +13,7 @@ export const devicesRepository = {
         longitude,
         created_at
       FROM devices
-      ORDER BY id ASC`
+      ORDER BY created_at ASC`
     );
     return rows;
   },
@@ -56,14 +56,14 @@ export const devicesRepository = {
     return rows[0] || null;
   },
 
-  async create(data) {
-    const [result] = await pool.query(
-      `INSERT INTO devices (device_code, name, location_name, place_id, latitude, longitude)
-       VALUES (?, ?, ?, ?, ?, ?)`,
-      [data.device_code, data.name, data.location_name, data.place_id, data.latitude, data.longitude]
+  async create({ id, device_code, name, location_name, place_id, latitude, longitude }) {
+    await pool.query(
+      `INSERT INTO devices (id, device_code, name, location_name, place_id, latitude, longitude)
+       VALUES (?, ?, ?, ?, ?, ?, ?)`,
+      [id, device_code, name, location_name, place_id, latitude, longitude]
     );
 
-    const created = await this.findById(result.insertId);
+    const created = await this.findById(id);
     if (!created) {
       throw new Error("Failed to retrieve created device");
     }
