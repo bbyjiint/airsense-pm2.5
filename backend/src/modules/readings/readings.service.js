@@ -15,12 +15,14 @@ export const readingsService = {
     }
 
     const id = generateUUIDv7();
-    return await readingsRepository.create({
+    const createReadingDTO = {
       id,
       deviceId: device.id,
       pm25: dto.pm25,
       temperature: dto.temperature,
       humidity: dto.humidity
-    });
+    };
+
+    return await readingsRepository.create(createReadingDTO);
   }
 };
