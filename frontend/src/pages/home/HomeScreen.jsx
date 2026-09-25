@@ -1,8 +1,9 @@
-import { useHomeSensors } from './hooks/useHomeSensors.js';
-import { AqiCard } from './components/AqiCard.jsx';
-import { LocationList } from './components/LocationList.jsx';
+import { useHomeSensors } from './useHomeSensors.jsx';
+import { AqiCard } from './AqiCard.jsx';
+import { LocationList } from './LocationList.jsx';
 
 export function HomeScreen() {
+  
   const {
     locations,
     selectedLocation,
@@ -14,45 +15,63 @@ export function HomeScreen() {
 
   if (loading) {
     return (
-      <div className="page page--my-air">
-        <header className="page__header">
-          <p className="page__eyebrow">Samut Sakhon Province</p>
-          <h1 className="page__title">My Air</h1>
+      <div className="page page--my-air px-5 pt-6 md:px-7 md:pt-8">
+        <header className="page__header mb-6">
+          <p className="page__eyebrow mb-1 text-[13px] font-semibold tracking-wider uppercase text-text-tertiary">
+            Samut Sakhon Province
+          </p>
+          <h1 className="page__title text-[32px] font-bold tracking-tight leading-tight">
+            My Air
+          </h1>
         </header>
-        <p>Loading sensor data...</p>
+        <p className="text-text-secondary">Loading sensor data...</p>
       </div>
     );
   }
 
   if (error) {
     return (
-      <div className="page page--my-air">
-        <header className="page__header">
-          <p className="page__eyebrow">Samut Sakhon Province</p>
-          <h1 className="page__title">My Air</h1>
+      <div className="page page--my-air px-5 pt-6 md:px-7 md:pt-8">
+        <header className="page__header mb-6">
+          <p className="page__eyebrow mb-1 text-[13px] font-semibold tracking-wider uppercase text-text-tertiary">
+            Samut Sakhon Province
+          </p>
+          <h1 className="page__title text-[32px] font-bold tracking-tight leading-tight">
+            My Air
+          </h1>
         </header>
-        <p className="error-message">{error}</p>
+        <p className="error-message mb-4 p-3 rounded-xl bg-unhealthy-soft text-unhealthy text-sm">
+          {error}
+        </p>
       </div>
     );
   }
 
   if (!selectedLocation) {
     return (
-      <div className="page page--my-air">
-        <header className="page__header">
-          <p className="page__eyebrow">Samut Sakhon Province</p>
-          <h1 className="page__title">My Air</h1>
+      <div className="page page--my-air px-5 pt-6 md:px-7 md:pt-8">
+        <header className="page__header mb-6">
+          <p className="page__eyebrow mb-1 text-[13px] font-semibold tracking-wider uppercase text-text-tertiary">
+            Samut Sakhon Province
+          </p>
+          <h1 className="page__title text-[32px] font-bold tracking-tight leading-tight">
+            My Air
+          </h1>
         </header>
-        <p>No sensor data found.</p>
+        <p className="text-text-secondary">No sensor data found.</p>
       </div>
     );
   }
 
   return (
-    <div className="page page--my-air">
-      <header className="page__header">
-        <p className="page__eyebrow">Samut Sakhon Province</p>
-        <h1 className="page__title">My Air</h1>
+    <div className="page page--my-air px-5 pt-6 md:px-7 md:pt-8">
+      <header className="page__header mb-6">
+        <p className="page__eyebrow mb-1 text-[13px] font-semibold tracking-wider uppercase text-text-tertiary">
+          Samut Sakhon Province
+        </p>
+        <h1 className="page__title text-[32px] font-bold tracking-tight leading-tight">
+          My Air
+        </h1>
       </header>
 
       <AqiCard location={selectedLocation} />
