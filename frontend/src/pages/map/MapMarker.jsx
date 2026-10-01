@@ -45,7 +45,7 @@ export function MapMarker({ location, onGoHome }) {
       icon={createMarkerIcon(location.pm25)}
     >
       <Popup
-        className="sensor-popup [&_.leaflet-popup-content-wrapper]:!scale-[0.56] [&_.leaflet-popup-content-wrapper]:!origin-bottom [&_.leaflet-popup-content-wrapper]:!p-0 [&_.leaflet-popup-content-wrapper]:!overflow-hidden [&_.leaflet-popup-content-wrapper]:!rounded-[18px] [&_.leaflet-popup-content-wrapper]:!bg-white [&_.leaflet-popup-content-wrapper]:!shadow-[0_12px_28px_rgba(20,23,31,0.16)] [&_.leaflet-popup-content]:!w-[245px] [&_.leaflet-popup-content]:!min-w-[245px] [&_.leaflet-popup-content]:!m-0 [&_.leaflet-popup-tip]:!bg-white min-[421px]:[&_.leaflet-popup-content]:!w-[285px] min-[421px]:[&_.leaflet-popup-content]:!min-w-[285px]"
+        className="[&_.leaflet-popup-content-wrapper]:!scale-[0.56] [&_.leaflet-popup-content-wrapper]:!origin-bottom [&_.leaflet-popup-content-wrapper]:!p-0 [&_.leaflet-popup-content-wrapper]:!overflow-hidden [&_.leaflet-popup-content-wrapper]:!rounded-[18px] [&_.leaflet-popup-content-wrapper]:!bg-white [&_.leaflet-popup-content-wrapper]:!shadow-[0_12px_28px_rgba(20,23,31,0.16)] [&_.leaflet-popup-content]:!w-[245px] [&_.leaflet-popup-content]:!min-w-[245px] [&_.leaflet-popup-content]:!m-0 [&_.leaflet-popup-tip]:!bg-white min-[421px]:[&_.leaflet-popup-content]:!w-[285px] min-[421px]:[&_.leaflet-popup-content]:!min-w-[285px]"
         maxWidth={285}
         closeButton={false}
       >

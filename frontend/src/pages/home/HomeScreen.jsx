@@ -3,7 +3,6 @@ import { AqiCard } from './AqiCard.jsx';
 import { LocationList } from './LocationList.jsx';
 
 export function HomeScreen() {
-  
   const {
     locations,
     selectedLocation,
@@ -15,12 +14,12 @@ export function HomeScreen() {
 
   if (loading) {
     return (
-      <div className="page page--my-air px-5 pt-6 md:px-7 md:pt-8">
-        <header className="page__header mb-6">
-          <p className="page__eyebrow mb-1 text-[13px] font-semibold tracking-wider uppercase text-text-tertiary">
+      <div className="px-5 pt-6 md:px-7 md:pt-8">
+        <header className="mb-6">
+          <p className="mb-1 text-[13px] font-semibold tracking-wider uppercase text-text-tertiary">
             Samut Sakhon Province
           </p>
-          <h1 className="page__title text-[32px] font-bold tracking-tight leading-tight">
+          <h1 className="text-[32px] font-bold tracking-tight leading-tight">
             My Air
           </h1>
         </header>
@@ -31,16 +30,16 @@ export function HomeScreen() {
 
   if (error) {
     return (
-      <div className="page page--my-air px-5 pt-6 md:px-7 md:pt-8">
-        <header className="page__header mb-6">
-          <p className="page__eyebrow mb-1 text-[13px] font-semibold tracking-wider uppercase text-text-tertiary">
+      <div className="px-5 pt-6 md:px-7 md:pt-8">
+        <header className="mb-6">
+          <p className="mb-1 text-[13px] font-semibold tracking-wider uppercase text-text-tertiary">
             Samut Sakhon Province
           </p>
-          <h1 className="page__title text-[32px] font-bold tracking-tight leading-tight">
+          <h1 className="text-[32px] font-bold tracking-tight leading-tight">
             My Air
           </h1>
         </header>
-        <p className="error-message mb-4 p-3 rounded-xl bg-unhealthy-soft text-unhealthy text-sm">
+        <p className="mb-4 p-3 rounded-xl bg-unhealthy-soft text-unhealthy text-sm">
           {error}
         </p>
       </div>
@@ -49,12 +48,12 @@ export function HomeScreen() {
 
   if (!selectedLocation) {
     return (
-      <div className="page page--my-air px-5 pt-6 md:px-7 md:pt-8">
-        <header className="page__header mb-6">
-          <p className="page__eyebrow mb-1 text-[13px] font-semibold tracking-wider uppercase text-text-tertiary">
+      <div className="px-5 pt-6 md:px-7 md:pt-8">
+        <header className="mb-6">
+          <p className="mb-1 text-[13px] font-semibold tracking-wider uppercase text-text-tertiary">
             Samut Sakhon Province
           </p>
-          <h1 className="page__title text-[32px] font-bold tracking-tight leading-tight">
+          <h1 className="text-[32px] font-bold tracking-tight leading-tight">
             My Air
           </h1>
         </header>
@@ -64,12 +63,12 @@ export function HomeScreen() {
   }
 
   return (
-    <div className="page page--my-air px-5 pt-6 md:px-7 md:pt-8">
-      <header className="page__header mb-6">
-        <p className="page__eyebrow mb-1 text-[13px] font-semibold tracking-wider uppercase text-text-tertiary">
+    <div className="px-5 pt-6 md:px-7 md:pt-8">
+      <header className="mb-6">
+        <p className="mb-1 text-[13px] font-semibold tracking-wider uppercase text-text-tertiary">
           Samut Sakhon Province
         </p>
-        <h1 className="page__title text-[32px] font-bold tracking-tight leading-tight">
+        <h1 className="text-[32px] font-bold tracking-tight leading-tight">
           My Air
         </h1>
       </header>

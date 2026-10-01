@@ -34,29 +34,29 @@ export function MapScreen({ onGoHome }) {
   }, [locations]);
 
   return (
-    <div className="page page--map px-5 pt-6 pb-0 md:px-7 md:pt-8 flex flex-col h-[calc(100vh-var(--nav-height)-var(--safe-bottom))] md:h-[calc(100vh-var(--nav-height)-var(--safe-bottom)-32px)]">
-      <header className="page__header page__header--compact mb-4">
-        <p className="page__eyebrow mb-1 text-[13px] font-semibold tracking-wider uppercase text-text-tertiary">
+    <div className="px-5 pt-6 pb-0 md:px-7 md:pt-8 flex flex-col h-[calc(100vh-var(--nav-height)-var(--safe-bottom))] md:h-[calc(100vh-var(--nav-height)-var(--safe-bottom)-32px)]">
+      <header className="mb-4">
+        <p className="mb-1 text-[13px] font-semibold tracking-wider uppercase text-text-tertiary">
           SAMUT SAKHON PROVINCE
         </p>
-        <h1 className="page__title text-[32px] font-bold tracking-tight leading-tight">
+        <h1 className="text-[32px] font-bold tracking-tight leading-tight">
           แผนที่เซ็นเซอร์
         </h1>
       </header>
 
       {error && (
-        <p className="error-message mb-4 p-3 rounded-xl bg-unhealthy-soft text-unhealthy text-sm">
+        <p className="mb-4 p-3 rounded-xl bg-unhealthy-soft text-unhealthy text-sm">
           {error}
         </p>
       )}
       {loading && <p className="text-text-secondary">Loading sensor locations...</p>}
 
       {!loading && locations.length > 0 && (
-        <div className="sensor-map relative flex-1 min-h-0 mb-2 overflow-hidden rounded-[20px] shadow-lg [&_.leaflet-container]:w-full [&_.leaflet-container]:h-full [&_.leaflet-control-zoom]:overflow-hidden [&_.leaflet-control-zoom]:!border-none [&_.leaflet-control-zoom]:!rounded-2xl [&_.leaflet-control-zoom]:!shadow-[0_4px_16px_rgba(20,23,31,0.16)] [&_.leaflet-control-zoom_a]:!w-[38px] [&_.leaflet-control-zoom_a]:!h-[38px] [&_.leaflet-control-zoom_a]:!flex [&_.leaflet-control-zoom_a]:!items-center [&_.leaflet-control-zoom_a]:!justify-center [&_.leaflet-control-zoom_a]:!leading-[38px] [&_.leaflet-control-zoom_a]:!text-text-primary">
+        <div className="relative flex-1 min-h-0 mb-2 overflow-hidden rounded-[20px] shadow-lg [&_.leaflet-container]:w-full [&_.leaflet-container]:h-full [&_.leaflet-control-zoom]:overflow-hidden [&_.leaflet-control-zoom]:!border-none [&_.leaflet-control-zoom]:!rounded-2xl [&_.leaflet-control-zoom]:!shadow-[0_4px_16px_rgba(20,23,31,0.16)] [&_.leaflet-control-zoom_a]:!w-[38px] [&_.leaflet-control-zoom_a]:!h-[38px] [&_.leaflet-control-zoom_a]:!flex [&_.leaflet-control-zoom_a]:!items-center [&_.leaflet-control-zoom_a]:!justify-center [&_.leaflet-control-zoom_a]:!leading-[38px] [&_.leaflet-control-zoom_a]:!text-text-primary">
           <MapContainer
             center={center}
             zoom={16}
-            className="sensor-map__canvas w-full h-full min-h-[420px] md:min-h-[480px] z-0"
+            className="w-full h-full min-h-[420px] md:min-h-[480px] z-0"
             scrollWheelZoom
             zoomControl
           >
@@ -76,18 +76,18 @@ export function MapScreen({ onGoHome }) {
             ))}
           </MapContainer>
 
-          <div className="map-legend absolute right-3.5 bottom-3.5 flex items-center gap-2 py-2 px-3 rounded-full bg-white/95 shadow-md text-[10px] z-[1000] max-w-[calc(100%-28px)] overflow-x-auto">
+          <div className="absolute right-3.5 bottom-3.5 flex items-center gap-2 py-2 px-3 rounded-full bg-white/95 shadow-md text-[10px] z-[1000] max-w-[calc(100%-28px)] overflow-x-auto">
             <strong className="text-[10px]">PM2.5</strong>
             <span className="flex items-center gap-1 whitespace-nowrap">
-              <i className="legend-dot legend-dot--good w-2 h-2 rounded-full bg-good shrink-0" />
+              <i className="w-2 h-2 rounded-full bg-good shrink-0" />
               0-49
             </span>
             <span className="flex items-center gap-1 whitespace-nowrap">
-              <i className="legend-dot legend-dot--moderate w-2 h-2 rounded-full bg-moderate shrink-0" />
+              <i className="w-2 h-2 rounded-full bg-moderate shrink-0" />
               50-99
             </span>
             <span className="flex items-center gap-1 whitespace-nowrap">
-              <i className="legend-dot legend-dot--unhealthy w-2 h-2 rounded-full bg-unhealthy shrink-0" />
+              <i className="w-2 h-2 rounded-full bg-unhealthy shrink-0" />
               100+
             </span>
           </div>

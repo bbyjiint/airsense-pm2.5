@@ -11,28 +11,28 @@ export function AqiCard({ location }) {
 
   return (
     <section
-      className={`aqi-card aqi-card--${location.level} mb-5 p-7 md:p-8 rounded-[20px] text-white shadow-2xl ${bgGradient}`}
+      className={`mb-5 p-7 md:p-8 rounded-[20px] text-white shadow-2xl ${bgGradient}`}
       aria-label="Current air quality"
     >
-      <p className="aqi-card__label mb-2 text-sm font-semibold tracking-wider uppercase opacity-85">
+      <p className="mb-2 text-sm font-semibold tracking-wider uppercase opacity-85">
         Air Quality
       </p>
 
-      <div className="aqi-card__body-wrapper flex justify-between items-end gap-5 mb-6">
+      <div className="flex justify-between items-end gap-5 mb-6">
         <div>
-          <p className="aqi-card__value mb-0 text-[80px] font-bold tracking-tight leading-none">
+          <p className="mb-0 text-[80px] font-bold tracking-tight leading-none">
             {location.pm25}
           </p>
-          <p className="aqi-card__status mb-0 text-[28px] font-semibold tracking-tight">
+          <p className="mb-0 text-[28px] font-semibold tracking-tight">
             {location.status}
           </p>
         </div>
 
-        <div className="aqi-card__meta text-right">
-          <p className="aqi-card__location mb-1 text-[17px] font-semibold leading-snug">
+        <div className="text-right">
+          <p className="mb-1 text-[17px] font-semibold leading-snug">
             {location.name}
           </p>
-          <p className="aqi-card__updated text-sm opacity-80">
+          <p className="text-sm opacity-80">
             Updated {location.updated}
           </p>
         </div>
