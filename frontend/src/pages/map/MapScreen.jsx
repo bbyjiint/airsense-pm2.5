@@ -1,9 +1,11 @@
 import { useEffect, useMemo } from 'react';
 import { MapContainer, TileLayer, useMap } from 'react-leaflet';
+import { useNavigate } from 'react-router-dom';
 import L from 'leaflet';
 
 import { useMapSensors } from './useMapSensors.jsx';
 import { MapMarker } from './MapMarker.jsx';
+import { PageHeader } from '../../components/PageHeader.jsx';
 import { useLanguage } from '../../context/LanguageContext.jsx';
 
 function MapBounds({ locations }) {
@@ -25,6 +27,8 @@ function MapBounds({ locations }) {
 }
 
 export function MapScreen({ onGoHome }) {
+  const navigate = useNavigate();
+  const handleGoHome = onGoHome || (() => navigate('/'));
   const { t } = useLanguage();
   const { locations, loading, error } = useMapSensors();
 
@@ -37,14 +41,11 @@ export function MapScreen({ onGoHome }) {
 
   return (
     <div className="px-5 pt-6 pb-0 md:px-7 md:pt-8 flex flex-col h-[calc(100vh-var(--nav-height)-var(--safe-bottom))] md:h-[calc(100vh-var(--nav-height)-var(--safe-bottom)-32px)]">
-      <header className="mb-4">
-        <p className="mb-1 text-[13px] font-semibold tracking-wider uppercase text-text-tertiary">
-          {t('map.province')}
-        </p>
-        <h1 className="text-[32px] font-bold tracking-tight leading-tight">
-          {t('map.title')}
-        </h1>
-      </header>
+      <PageHeader
+        title={t('map.title')}
+        subtitle={t('map.province')}
+        className="mb-4"
+      />
 
       {error && (
         <p className="mb-4 p-3 rounded-xl bg-unhealthy-soft text-unhealthy text-sm">
@@ -73,7 +74,7 @@ export function MapScreen({ onGoHome }) {
               <MapMarker
                 key={location.id}
                 location={location}
-                onGoHome={onGoHome}
+                onGoHome={handleGoHome}
               />
             ))}
           </MapContainer>

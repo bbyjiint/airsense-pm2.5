@@ -1,6 +1,7 @@
 import { useHomeSensors } from './useHomeSensors.jsx';
 import { AqiCard } from './AqiCard.jsx';
 import { LocationList } from './LocationList.jsx';
+import { PageHeader } from '../../components/PageHeader.jsx';
 import { useLanguage } from '../../context/LanguageContext.jsx';
 
 export function HomeScreen() {
@@ -17,14 +18,7 @@ export function HomeScreen() {
   if (loading) {
     return (
       <div className="px-5 pt-6 md:px-7 md:pt-8">
-        <header className="mb-6">
-          <p className="mb-1 text-[13px] font-semibold tracking-wider uppercase text-text-tertiary">
-            {t('home.province')}
-          </p>
-          <h1 className="text-[32px] font-bold tracking-tight leading-tight">
-            {t('home.title')}
-          </h1>
-        </header>
+        <PageHeader title={t('home.title')} subtitle={t('home.province')} />
         <p className="text-text-secondary">{t('common.loading')}</p>
       </div>
     );
@@ -33,14 +27,7 @@ export function HomeScreen() {
   if (error) {
     return (
       <div className="px-5 pt-6 md:px-7 md:pt-8">
-        <header className="mb-6">
-          <p className="mb-1 text-[13px] font-semibold tracking-wider uppercase text-text-tertiary">
-            {t('home.province')}
-          </p>
-          <h1 className="text-[32px] font-bold tracking-tight leading-tight">
-            {t('home.title')}
-          </h1>
-        </header>
+        <PageHeader title={t('home.title')} subtitle={t('home.province')} />
         <p className="mb-4 p-3 rounded-xl bg-unhealthy-soft text-unhealthy text-sm">
           {t('common.error')}
         </p>
@@ -51,14 +38,7 @@ export function HomeScreen() {
   if (!selectedLocation) {
     return (
       <div className="px-5 pt-6 md:px-7 md:pt-8">
-        <header className="mb-6">
-          <p className="mb-1 text-[13px] font-semibold tracking-wider uppercase text-text-tertiary">
-            {t('home.province')}
-          </p>
-          <h1 className="text-[32px] font-bold tracking-tight leading-tight">
-            {t('home.title')}
-          </h1>
-        </header>
+        <PageHeader title={t('home.title')} subtitle={t('home.province')} />
         <p className="text-text-secondary">{t('home.noData')}</p>
       </div>
     );
@@ -66,14 +46,7 @@ export function HomeScreen() {
 
   return (
     <div className="px-5 pt-6 md:px-7 md:pt-8">
-      <header className="mb-6">
-        <p className="mb-1 text-[13px] font-semibold tracking-wider uppercase text-text-tertiary">
-          {t('home.province')}
-        </p>
-        <h1 className="text-[32px] font-bold tracking-tight leading-tight">
-          {t('home.title')}
-        </h1>
-      </header>
+      <PageHeader title={t('home.title')} subtitle={t('home.province')} />
 
       <AqiCard location={selectedLocation} />
 

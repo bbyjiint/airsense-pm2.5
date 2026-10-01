@@ -1,8 +1,7 @@
 import { describe, expect, it } from "bun:test";
-import React from "react";
 import { render, screen, fireEvent } from "@testing-library/react";
-import { SettingsScreen } from "../src/pages/settings/SettingsScreen.jsx";
-import { LanguageProvider } from "../src/context/LanguageContext.jsx";
+import { SettingsScreen } from "./SettingsScreen.jsx";
+import { LanguageProvider } from "../../context/LanguageContext.jsx";
 
 describe("SettingsScreen Component & i18n Tests", () => {
   it("renders settings screen in Thai by default", () => {

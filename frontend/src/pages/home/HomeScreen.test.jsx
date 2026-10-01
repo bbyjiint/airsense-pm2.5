@@ -1,8 +1,7 @@
 import { describe, expect, it } from "bun:test";
-import React from "react";
 import { render, screen } from "@testing-library/react";
-import { HomeScreen } from "../src/pages/home/HomeScreen.jsx";
-import { LanguageProvider } from "../src/context/LanguageContext.jsx";
+import { HomeScreen } from "./HomeScreen.jsx";
+import { LanguageProvider } from "../../context/LanguageContext.jsx";
 
 function renderWithLang(ui, lang = "th") {
   return render(
@@ -25,7 +24,6 @@ describe("HomeScreen Component Tests", () => {
     globalThis.fetch = () => Promise.reject(new Error("API Down"));
 
     renderWithLang(<HomeScreen />);
-    // wait for state update
     await new Promise((r) => setTimeout(r, 50));
 
     expect(screen.getByText("ไม่สามารถเชื่อมต่อ AirSense API ได้")).toBeDefined();

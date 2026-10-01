@@ -1,6 +1,6 @@
 import { describe, expect, it } from "bun:test";
-import { getAqiStatus } from "../src/utils/air.js";
-import { getAqiColor, getIndicatorPosition } from "../src/pages/map/formatAqi.jsx";
+import { getAqiStatus } from "./air.js";
+import { getAqiColor, getIndicatorPosition } from "../pages/map/formatAqi.jsx";
 
 describe("Air Quality Calculation & Indicator Logic (International 5-Tier Standard)", () => {
   it("Level 1: classifies PM2.5 <= 12.0 as Good (Green)", () => {

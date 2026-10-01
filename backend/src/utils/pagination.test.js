@@ -1,5 +1,5 @@
 import { describe, expect, it } from "bun:test";
-import { getPaginationQuery, calculatePagination } from "../src/utils/pagination.js";
+import { getPaginationQuery, calculatePagination } from "./pagination.js";
 
 describe("Simple Pagination Utils", () => {
   it("getPaginationQuery calculates limit and offset", () => {

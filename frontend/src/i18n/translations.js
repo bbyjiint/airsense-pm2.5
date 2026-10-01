@@ -53,6 +53,19 @@ export const translations = {
       loading: 'กำลังโหลดข้อมูลเซ็นเซอร์...',
       error: 'ไม่สามารถเชื่อมต่อ AirSense API ได้',
     },
+    notFound: {
+      title: 'ไม่พบหน้าที่ต้องการ',
+      subtitle: '404 - Not Found',
+      desc: 'หน้าที่คุณกำลังค้นหาไม่มีอยู่ ถูกลบ หรือย้ายที่อยู่แล้ว',
+      backHome: 'กลับสู่หน้าหลัก',
+    },
+    errorScreen: {
+      title: 'เกิดข้อผิดพลาดบางอย่าง',
+      subtitle: 'Application Error',
+      desc: 'ระบบพบปัญหาที่ไม่คาดคิด กรุณาลองใหม่อีกครั้ง หรือกลับสู่หน้าหลัก',
+      retry: 'ลองใหม่อีกครั้ง',
+      backHome: 'กลับสู่หน้าหลัก',
+    },
   },
   en: {
     nav: {
@@ -107,6 +120,19 @@ export const translations = {
       updated: 'Updated',
       loading: 'Loading sensor data...',
       error: 'Unable to connect to the AirSense API.',
+    },
+    notFound: {
+      title: 'Page Not Found',
+      subtitle: '404 - Not Found',
+      desc: 'The page you are looking for does not exist, was removed, or has been moved.',
+      backHome: 'Back to Home',
+    },
+    errorScreen: {
+      title: 'Something went wrong',
+      subtitle: 'Application Error',
+      desc: 'An unexpected problem occurred. Please try again or return to the home screen.',
+      retry: 'Try Again',
+      backHome: 'Back to Home',
     },
   },
 };

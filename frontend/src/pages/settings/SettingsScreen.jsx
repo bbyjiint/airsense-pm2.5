@@ -1,4 +1,5 @@
 import { useLanguage } from '../../context/LanguageContext.jsx';
+import { PageHeader } from '../../components/PageHeader.jsx';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
   faLanguage,
@@ -9,7 +10,6 @@ import {
   faGear,
   faCircleInfo,
   faLock,
-  faGlobe,
 } from '@fortawesome/free-solid-svg-icons';
 
 export function SettingsScreen() {
@@ -30,14 +30,11 @@ export function SettingsScreen() {
 
   return (
     <div className="px-5 pt-6 md:px-7 md:pt-8 flex flex-col gap-6">
-      <header className="mb-1">
-        <p className="mb-1 text-[13px] font-semibold tracking-wider uppercase text-text-tertiary">
-          {t('settings.subtitle')}
-        </p>
-        <h1 className="text-[32px] font-bold tracking-tight leading-tight">
-          {t('settings.title')}
-        </h1>
-      </header>
+      <PageHeader
+        title={t('settings.title')}
+        subtitle={t('settings.subtitle')}
+        className="mb-1"
+      />
 
       {/* Section 1: Language Selection */}
       <section className="p-5 rounded-2xl bg-white border border-divider shadow-sm" aria-label="Language settings">

@@ -4,6 +4,7 @@ import "dotenv/config";
 
 import devicesRouter from "./modules/devices/devices.routes.js";
 import readingsRouter from "./modules/readings/readings.routes.js";
+import { sendError, httpErrors } from "./utils/response.js";
 
 const app = express();
 const PORT = process.env.PORT || 4000;
@@ -26,6 +27,16 @@ app.get("/", (req, res) => {
 
 app.use("/api/devices", devicesRouter);
 app.use("/api/readings", readingsRouter);
+
+// 404 Route Handler
+app.use((req, res) => {
+  sendError(res, httpErrors.notFound(`Route ${req.method} ${req.originalUrl} not found`));
+});
+
+// Centralized Error Handling Middleware
+app.use((err, req, res, next) => {
+  sendError(res, err);
+});
 
 // Start server only when run directly, not when imported during tests
 if (process.env.NODE_ENV !== "test") {
