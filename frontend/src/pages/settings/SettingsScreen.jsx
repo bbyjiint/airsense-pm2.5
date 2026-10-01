@@ -9,14 +9,15 @@ import {
   faGear,
   faCircleInfo,
   faLock,
+  faGlobe,
 } from '@fortawesome/free-solid-svg-icons';
 
 export function SettingsScreen() {
   const { language, setLanguage, t } = useLanguage();
 
   const languageOptions = [
-    { id: 'th', label: 'ภาษาไทย', sublabel: 'Thai', flag: '🇹🇭' },
-    { id: 'en', label: 'English', sublabel: 'อังกฤษ', flag: '🇺🇸' },
+    { id: 'th', label: 'ภาษาไทย', sublabel: 'Thai', code: 'TH' },
+    { id: 'en', label: 'English', sublabel: 'อังกฤษ', code: 'EN' },
   ];
 
   const standardTiers = [
@@ -70,7 +71,13 @@ export function SettingsScreen() {
                 aria-pressed={isSelected}
               >
                 <div className="flex items-center gap-3">
-                  <span className="text-2xl leading-none">{opt.flag}</span>
+                  <span className={`w-8 h-8 rounded-lg flex items-center justify-center text-xs font-extrabold tracking-wider transition-colors ${
+                    isSelected
+                      ? 'bg-brand text-white'
+                      : 'bg-gray-100 text-text-secondary'
+                  }`}>
+                    {opt.code}
+                  </span>
                   <div>
                     <p className={`text-sm font-bold ${isSelected ? 'text-brand' : 'text-text-primary'}`}>
                       {opt.label}
