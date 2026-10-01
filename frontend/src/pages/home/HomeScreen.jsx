@@ -1,8 +1,10 @@
 import { useHomeSensors } from './useHomeSensors.jsx';
 import { AqiCard } from './AqiCard.jsx';
 import { LocationList } from './LocationList.jsx';
+import { useLanguage } from '../../context/LanguageContext.jsx';
 
 export function HomeScreen() {
+  const { t } = useLanguage();
   const {
     locations,
     selectedLocation,
@@ -17,13 +19,13 @@ export function HomeScreen() {
       <div className="px-5 pt-6 md:px-7 md:pt-8">
         <header className="mb-6">
           <p className="mb-1 text-[13px] font-semibold tracking-wider uppercase text-text-tertiary">
-            Samut Sakhon Province
+            {t('home.province')}
           </p>
           <h1 className="text-[32px] font-bold tracking-tight leading-tight">
-            My Air
+            {t('home.title')}
           </h1>
         </header>
-        <p className="text-text-secondary">Loading sensor data...</p>
+        <p className="text-text-secondary">{t('common.loading')}</p>
       </div>
     );
   }
@@ -33,14 +35,14 @@ export function HomeScreen() {
       <div className="px-5 pt-6 md:px-7 md:pt-8">
         <header className="mb-6">
           <p className="mb-1 text-[13px] font-semibold tracking-wider uppercase text-text-tertiary">
-            Samut Sakhon Province
+            {t('home.province')}
           </p>
           <h1 className="text-[32px] font-bold tracking-tight leading-tight">
-            My Air
+            {t('home.title')}
           </h1>
         </header>
         <p className="mb-4 p-3 rounded-xl bg-unhealthy-soft text-unhealthy text-sm">
-          {error}
+          {t('common.error')}
         </p>
       </div>
     );
@@ -51,13 +53,13 @@ export function HomeScreen() {
       <div className="px-5 pt-6 md:px-7 md:pt-8">
         <header className="mb-6">
           <p className="mb-1 text-[13px] font-semibold tracking-wider uppercase text-text-tertiary">
-            Samut Sakhon Province
+            {t('home.province')}
           </p>
           <h1 className="text-[32px] font-bold tracking-tight leading-tight">
-            My Air
+            {t('home.title')}
           </h1>
         </header>
-        <p className="text-text-secondary">No sensor data found.</p>
+        <p className="text-text-secondary">{t('home.noData')}</p>
       </div>
     );
   }
@@ -66,10 +68,10 @@ export function HomeScreen() {
     <div className="px-5 pt-6 md:px-7 md:pt-8">
       <header className="mb-6">
         <p className="mb-1 text-[13px] font-semibold tracking-wider uppercase text-text-tertiary">
-          Samut Sakhon Province
+          {t('home.province')}
         </p>
         <h1 className="text-[32px] font-bold tracking-tight leading-tight">
-          My Air
+          {t('home.title')}
         </h1>
       </header>
 

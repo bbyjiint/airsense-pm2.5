@@ -1,6 +1,8 @@
 import { Marker, Popup, useMap } from 'react-leaflet';
 import L from 'leaflet';
 import { getAqiColor, getIndicatorPosition } from './formatAqi.jsx';
+import { useLanguage } from '../../context/LanguageContext.jsx';
+import { formatUpdatedTime } from '../../utils/air.js';
 
 function createMarkerIcon(aqi) {
   const color = getAqiColor(aqi);
@@ -36,8 +38,13 @@ function PopupCloseButton() {
 }
 
 export function MapMarker({ location, onGoHome }) {
+  const { t, language } = useLanguage();
   const color = getAqiColor(location.pm25);
   const indicatorPosition = getIndicatorPosition(location.pm25);
+  const statusDisplay = t(location.statusKey || `status.${location.level}`);
+  const updatedDisplay = location.createdAt
+    ? formatUpdatedTime(location.createdAt, language === 'th' ? 'th-TH' : 'en-GB')
+    : '-';
 
   return (
     <Marker
@@ -79,20 +86,22 @@ export function MapMarker({ location, onGoHome }) {
 
             <div className="min-w-0 flex flex-col justify-center">
               <span className="mb-0.5 text-[10px] font-semibold text-[#28334a]">
-                คุณภาพอากาศ
+                {t('map.airQuality')}
               </span>
               <strong
                 className="mb-2 text-base sm:text-lg font-bold leading-tight"
                 style={{ color }}
               >
-                {location.statusThai}
+                {statusDisplay}
               </strong>
 
               <div className="relative w-full pt-1.5">
                 <div className="w-full h-1.5 flex overflow-hidden rounded-full">
                   <span className="flex-1 bg-good" />
                   <span className="flex-1 bg-moderate" />
+                  <span className="flex-1 bg-sensitive" />
                   <span className="flex-1 bg-unhealthy" />
+                  <span className="flex-1 bg-very-unhealthy" />
                 </div>
                 <span
                   className="absolute top-1 w-3 h-3 -translate-x-1/2 border-2 border-solid rounded-full bg-white shadow-[0_1px_4px_rgba(0,0,0,0.18)] z-[2] before:content-[''] before:absolute before:left-1/2 before:-top-1.5 before:-translate-x-1/2 before:w-0 before:h-0 before:border-l-[3px] before:border-l-transparent before:border-r-[3px] before:border-r-transparent before:border-b-[5px] before:border-b-current"
@@ -108,13 +117,13 @@ export function MapMarker({ location, onGoHome }) {
 
           <div className="flex gap-3.5 mt-2.5 pt-2 border-t border-[#e7eaef]">
             <div className="flex-1 flex flex-col">
-              <span className="text-[9px] text-[#9aa1ac]">อุณหภูมิ</span>
+              <span className="text-[9px] text-[#9aa1ac]">{t('map.temperature')}</span>
               <strong className="mt-px text-xs text-[#14171f]">
                 {location.temperature}°C
               </strong>
             </div>
             <div className="flex-1 flex flex-col">
-              <span className="text-[9px] text-[#9aa1ac]">ความชื้น</span>
+              <span className="text-[9px] text-[#9aa1ac]">{t('map.humidity')}</span>
               <strong className="mt-px text-xs text-[#14171f]">
                 {location.humidity}%
               </strong>
@@ -122,7 +131,7 @@ export function MapMarker({ location, onGoHome }) {
           </div>
 
           <p className="my-2.5 text-[9px] text-[#7d8798]">
-            อัปเดตล่าสุด {location.updated}
+            {t('map.lastUpdated')} {updatedDisplay}
           </p>
 
           <button
@@ -130,7 +139,7 @@ export function MapMarker({ location, onGoHome }) {
             className="w-full block py-2 px-2.5 border-none rounded-lg bg-brand text-white text-[11px] font-bold cursor-pointer active:opacity-85 active:scale-[0.98]"
             onClick={onGoHome}
           >
-            ดูรายละเอียดใน My Air
+            {t('map.viewInMyAir')}
           </button>
         </div>
       </Popup>

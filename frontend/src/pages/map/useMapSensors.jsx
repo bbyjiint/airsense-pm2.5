@@ -29,10 +29,8 @@ export function useMapSensors(pollingInterval = 15000) {
           pm25: Number(reading.pm25),
           temperature: Number(reading.temperature),
           humidity: Number(reading.humidity),
-          status: status.text,
-          statusThai: status.textThai,
           level: status.level,
-          updated: formatUpdatedTime(reading.created_at, 'th-TH'),
+          statusKey: status.statusKey,
           createdAt: reading.created_at,
         };
       });

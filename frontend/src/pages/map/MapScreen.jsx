@@ -4,6 +4,7 @@ import L from 'leaflet';
 
 import { useMapSensors } from './useMapSensors.jsx';
 import { MapMarker } from './MapMarker.jsx';
+import { useLanguage } from '../../context/LanguageContext.jsx';
 
 function MapBounds({ locations }) {
   const map = useMap();
@@ -24,6 +25,7 @@ function MapBounds({ locations }) {
 }
 
 export function MapScreen({ onGoHome }) {
+  const { t } = useLanguage();
   const { locations, loading, error } = useMapSensors();
 
   const center = useMemo(() => {
@@ -37,19 +39,19 @@ export function MapScreen({ onGoHome }) {
     <div className="px-5 pt-6 pb-0 md:px-7 md:pt-8 flex flex-col h-[calc(100vh-var(--nav-height)-var(--safe-bottom))] md:h-[calc(100vh-var(--nav-height)-var(--safe-bottom)-32px)]">
       <header className="mb-4">
         <p className="mb-1 text-[13px] font-semibold tracking-wider uppercase text-text-tertiary">
-          SAMUT SAKHON PROVINCE
+          {t('map.province')}
         </p>
         <h1 className="text-[32px] font-bold tracking-tight leading-tight">
-          แผนที่เซ็นเซอร์
+          {t('map.title')}
         </h1>
       </header>
 
       {error && (
         <p className="mb-4 p-3 rounded-xl bg-unhealthy-soft text-unhealthy text-sm">
-          {error}
+          {t('common.error')}
         </p>
       )}
-      {loading && <p className="text-text-secondary">Loading sensor locations...</p>}
+      {loading && <p className="text-text-secondary">{t('map.loadingLocations')}</p>}
 
       {!loading && locations.length > 0 && (
         <div className="relative flex-1 min-h-0 mb-2 overflow-hidden rounded-[20px] shadow-lg [&_.leaflet-container]:w-full [&_.leaflet-container]:h-full [&_.leaflet-control-zoom]:overflow-hidden [&_.leaflet-control-zoom]:!border-none [&_.leaflet-control-zoom]:!rounded-2xl [&_.leaflet-control-zoom]:!shadow-[0_4px_16px_rgba(20,23,31,0.16)] [&_.leaflet-control-zoom_a]:!w-[38px] [&_.leaflet-control-zoom_a]:!h-[38px] [&_.leaflet-control-zoom_a]:!flex [&_.leaflet-control-zoom_a]:!items-center [&_.leaflet-control-zoom_a]:!justify-center [&_.leaflet-control-zoom_a]:!leading-[38px] [&_.leaflet-control-zoom_a]:!text-text-primary">
@@ -80,15 +82,23 @@ export function MapScreen({ onGoHome }) {
             <strong className="text-[10px]">PM2.5</strong>
             <span className="flex items-center gap-1 whitespace-nowrap">
               <i className="w-2 h-2 rounded-full bg-good shrink-0" />
-              0-49
+              0-12
             </span>
             <span className="flex items-center gap-1 whitespace-nowrap">
               <i className="w-2 h-2 rounded-full bg-moderate shrink-0" />
-              50-99
+              12.1-35.4
+            </span>
+            <span className="flex items-center gap-1 whitespace-nowrap">
+              <i className="w-2 h-2 rounded-full bg-sensitive shrink-0" />
+              35.5-55.4
             </span>
             <span className="flex items-center gap-1 whitespace-nowrap">
               <i className="w-2 h-2 rounded-full bg-unhealthy shrink-0" />
-              100+
+              55.5-150.4
+            </span>
+            <span className="flex items-center gap-1 whitespace-nowrap">
+              <i className="w-2 h-2 rounded-full bg-very-unhealthy shrink-0" />
+              150.5+
             </span>
           </div>
         </div>

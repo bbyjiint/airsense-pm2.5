@@ -2,25 +2,33 @@ import { describe, expect, it } from "bun:test";
 import React from "react";
 import { render, screen } from "@testing-library/react";
 import { HomeScreen } from "../src/pages/home/HomeScreen.jsx";
+import { LanguageProvider } from "../src/context/LanguageContext.jsx";
+
+function renderWithLang(ui, lang = "th") {
+  return render(
+    <LanguageProvider initialLanguage={lang}>
+      {ui}
+    </LanguageProvider>
+  );
+}
 
 describe("HomeScreen Component Tests", () => {
   it("renders loading state by default", () => {
-    // mock global fetch
     globalThis.fetch = () => new Promise(() => {}); // never resolves to test loading
 
-    render(<HomeScreen />);
-    expect(screen.getByText("Loading sensor data...")).toBeDefined();
+    renderWithLang(<HomeScreen />);
+    expect(screen.getByText("กำลังโหลดข้อมูลเซ็นเซอร์...")).toBeDefined();
     expect(screen.getByText("My Air")).toBeDefined();
   });
 
   it("renders error state when fetch fails", async () => {
     globalThis.fetch = () => Promise.reject(new Error("API Down"));
 
-    render(<HomeScreen />);
+    renderWithLang(<HomeScreen />);
     // wait for state update
     await new Promise((r) => setTimeout(r, 50));
 
-    expect(screen.getByText("Unable to connect to the AirSense API.")).toBeDefined();
+    expect(screen.getByText("ไม่สามารถเชื่อมต่อ AirSense API ได้")).toBeDefined();
   });
 
   it("renders locations and selected card when fetch succeeds", async () => {
@@ -57,12 +65,12 @@ describe("HomeScreen Component Tests", () => {
         json: () => Promise.resolve(mockData)
       });
 
-    render(<HomeScreen />);
+    renderWithLang(<HomeScreen />);
     await new Promise((r) => setTimeout(r, 50));
 
-    expect(screen.getByText("Air Quality")).toBeDefined();
+    expect(screen.getByText("คุณภาพอากาศ")).toBeDefined();
     expect(screen.getAllByText("Siam Station").length).toBe(2);
     expect(screen.getByText("Ari Station")).toBeDefined();
-    expect(screen.getByText("All Locations")).toBeDefined();
+    expect(screen.getByText("จุดตรวจวัดทั้งหมด")).toBeDefined();
   });
 });

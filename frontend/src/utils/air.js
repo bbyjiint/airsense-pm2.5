@@ -4,26 +4,37 @@ export const API_URL =
 export function getAqiStatus(pm25) {
   const value = Number(pm25);
 
-  if (value <= 49) {
+  if (value <= 12.0) {
     return {
-      text: 'Good',
-      textThai: 'ดี',
       level: 'good',
+      statusKey: 'status.good',
     };
   }
 
-  if (value <= 99) {
+  if (value <= 35.4) {
     return {
-      text: 'Moderate',
-      textThai: 'ปานกลาง',
       level: 'moderate',
+      statusKey: 'status.moderate',
+    };
+  }
+
+  if (value <= 55.4) {
+    return {
+      level: 'unhealthy-sensitive',
+      statusKey: 'status.unhealthy-sensitive',
+    };
+  }
+
+  if (value <= 150.4) {
+    return {
+      level: 'unhealthy',
+      statusKey: 'status.unhealthy',
     };
   }
 
   return {
-    text: 'Unhealthy',
-    textThai: 'ไม่ดีต่อสุขภาพ',
-    level: 'unhealthy',
+    level: 'very-unhealthy',
+    statusKey: 'status.very-unhealthy',
   };
 }
 

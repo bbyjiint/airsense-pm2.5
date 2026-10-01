@@ -1,80 +1,62 @@
 import { describe, expect, it } from "bun:test";
+import { getAqiStatus } from "../src/utils/air.js";
+import { getAqiColor, getIndicatorPosition } from "../src/pages/map/formatAqi.jsx";
 
-// Test business logic formatters used in AirSense
-export function getAqiStatus(pm25) {
-  const value = Number(pm25);
-
-  if (value <= 49) {
-    return {
-      text: "Good",
-      textThai: "ดี",
-      level: "good"
-    };
-  }
-
-  if (value <= 99) {
-    return {
-      text: "Moderate",
-      textThai: "ปานกลาง",
-      level: "moderate"
-    };
-  }
-
-  return {
-    text: "Unhealthy",
-    textThai: "ไม่ดีต่อสุขภาพ",
-    level: "unhealthy"
-  };
-}
-
-export function getIndicatorPosition(pm25) {
-  const value = Number(pm25);
-
-  if (value <= 49) {
-    return Math.max(8, (value / 49) * 33);
-  }
-
-  if (value <= 99) {
-    return 33 + ((value - 50) / 49) * 33;
-  }
-
-  return Math.min(92, 66 + ((value - 100) / 100) * 34);
-}
-
-export function getAqiColor(aqi) {
-  if (aqi <= 49) return "#2FBF71";
-  if (aqi <= 99) return "#F5A623";
-  return "#E5484D";
-}
-
-describe("Air Quality Calculation & Indicator Logic", () => {
-  it("classifies PM2.5 <= 49 as Good", () => {
-    const res = getAqiStatus(25);
-    expect(res.text).toBe("Good");
-    expect(res.textThai).toBe("ดี");
+describe("Air Quality Calculation & Indicator Logic (International 5-Tier Standard)", () => {
+  it("Level 1: classifies PM2.5 <= 12.0 as Good (Green)", () => {
+    const res = getAqiStatus(10);
     expect(res.level).toBe("good");
-    expect(getAqiColor(25)).toBe("#2FBF71");
+    expect(res.statusKey).toBe("status.good");
+    expect(getAqiColor(10)).toBe("#2FBF71");
   });
 
-  it("classifies PM2.5 50-99 as Moderate", () => {
-    const res = getAqiStatus(60);
-    expect(res.text).toBe("Moderate");
-    expect(res.textThai).toBe("ปานกลาง");
-    expect(res.level).toBe("moderate");
-    expect(getAqiColor(60)).toBe("#F5A623");
+  it("Level 2: classifies PM2.5 12.1-35.4 as Moderate (Yellow)", () => {
+    const res19 = getAqiStatus(19);
+    expect(res19.level).toBe("moderate");
+    expect(res19.statusKey).toBe("status.moderate");
+    expect(getAqiColor(19)).toBe("#F5A623");
+
+    const res35 = getAqiStatus(35);
+    expect(res35.level).toBe("moderate");
+    expect(res35.statusKey).toBe("status.moderate");
+    expect(getAqiColor(35)).toBe("#F5A623");
   });
 
-  it("classifies PM2.5 >= 100 as Unhealthy", () => {
-    const res = getAqiStatus(120);
-    expect(res.text).toBe("Unhealthy");
-    expect(res.textThai).toBe("ไม่ดีต่อสุขภาพ");
+  it("Level 3: classifies PM2.5 35.5-55.4 as Unhealthy for Sensitive Groups (Orange)", () => {
+    const res = getAqiStatus(45);
+    expect(res.level).toBe("unhealthy-sensitive");
+    expect(res.statusKey).toBe("status.unhealthy-sensitive");
+    expect(getAqiColor(45)).toBe("#FF7B00");
+  });
+
+  it("Level 4: classifies PM2.5 55.5-150.4 as Unhealthy (Red)", () => {
+    const res = getAqiStatus(75);
     expect(res.level).toBe("unhealthy");
-    expect(getAqiColor(120)).toBe("#E5484D");
+    expect(res.statusKey).toBe("status.unhealthy");
+    expect(getAqiColor(75)).toBe("#E5484D");
   });
 
-  it("calculates indicator position correctly within bounds", () => {
-    expect(getIndicatorPosition(10)).toBeGreaterThanOrEqual(8);
-    expect(getIndicatorPosition(70)).toBeGreaterThan(33);
-    expect(getIndicatorPosition(150)).toBeLessThanOrEqual(92);
+  it("Level 5: classifies PM2.5 > 150.4 as Very Unhealthy (Purple)", () => {
+    const res = getAqiStatus(180);
+    expect(res.level).toBe("very-unhealthy");
+    expect(res.statusKey).toBe("status.very-unhealthy");
+    expect(getAqiColor(180)).toBe("#8F44FD");
+  });
+
+  it("calculates indicator position correctly across 5 tiers", () => {
+    expect(getIndicatorPosition(6)).toBeGreaterThanOrEqual(5);
+    expect(getIndicatorPosition(6)).toBeLessThanOrEqual(20);
+
+    expect(getIndicatorPosition(19)).toBeGreaterThan(20);
+    expect(getIndicatorPosition(19)).toBeLessThan(40);
+
+    expect(getIndicatorPosition(45)).toBeGreaterThan(40);
+    expect(getIndicatorPosition(45)).toBeLessThan(60);
+
+    expect(getIndicatorPosition(100)).toBeGreaterThan(60);
+    expect(getIndicatorPosition(100)).toBeLessThan(80);
+
+    expect(getIndicatorPosition(200)).toBeGreaterThan(80);
+    expect(getIndicatorPosition(200)).toBeLessThanOrEqual(95);
   });
 });

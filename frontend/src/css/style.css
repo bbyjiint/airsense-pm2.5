@@ -19,8 +19,14 @@
   --color-moderate: #f5a623;
   --color-moderate-soft: #fef3e0;
 
+  --color-sensitive: #ff7b00;
+  --color-sensitive-soft: #fff2e5;
+
   --color-unhealthy: #e5484d;
   --color-unhealthy-soft: #fdeaea;
+
+  --color-very-unhealthy: #8f44fd;
+  --color-very-unhealthy-soft: #f4ecff;
 }
 
 :root {

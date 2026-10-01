@@ -1,17 +1,24 @@
 import { useState } from 'react';
 import { HomeScreen } from './pages/home/HomeScreen.jsx';
 import { MapScreen } from './pages/map/MapScreen.jsx';
+import { SettingsScreen } from './pages/settings/SettingsScreen.jsx';
+import { LanguageProvider, useLanguage } from './context/LanguageContext.jsx';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faWind } from '@fortawesome/free-solid-svg-icons';
+import { faWind, faGear } from '@fortawesome/free-solid-svg-icons';
 import { faMap } from '@fortawesome/free-regular-svg-icons';
 
-function App() {
+function AppContent() {
   const [activeScreen, setActiveScreen] = useState('home');
+  const { t } = useLanguage();
 
   function renderScreen() {
     if (activeScreen === 'map') {
       return <MapScreen onGoHome={() => setActiveScreen('home')} />;
+    }
+
+    if (activeScreen === 'settings') {
+      return <SettingsScreen />;
     }
 
     return <HomeScreen />;
@@ -29,31 +36,52 @@ function App() {
       >
         <button
           type="button"
-          className={`flex-1 min-h-[var(--nav-height)] flex flex-col items-center justify-center gap-1 py-3 px-2 transition-all active:scale-95 ${
+          className={`flex-1 min-h-[var(--nav-height)] flex flex-col items-center justify-center gap-1 py-3 px-2 transition-all active:scale-95 cursor-pointer ${
             activeScreen === 'home'
               ? 'text-brand'
               : 'text-text-tertiary'
           }`}
           onClick={() => setActiveScreen('home')}
         >
-          <FontAwesomeIcon icon={faWind} className="w-6 h-6 text-2xl" />
-          <span className="text-xs font-semibold">My Air</span>
+          <FontAwesomeIcon icon={faWind} className="w-5 h-5 text-xl" />
+          <span className="text-xs font-semibold">{t('nav.myAir')}</span>
         </button>
 
         <button
           type="button"
-          className={`flex-1 min-h-[var(--nav-height)] flex flex-col items-center justify-center gap-1 py-3 px-2 transition-all active:scale-95 ${
+          className={`flex-1 min-h-[var(--nav-height)] flex flex-col items-center justify-center gap-1 py-3 px-2 transition-all active:scale-95 cursor-pointer ${
             activeScreen === 'map'
               ? 'text-brand'
               : 'text-text-tertiary'
           }`}
           onClick={() => setActiveScreen('map')}
         >
-          <FontAwesomeIcon icon={faMap} className="w-6 h-6 text-2xl" />
-          <span className="text-xs font-semibold">Map</span>
+          <FontAwesomeIcon icon={faMap} className="w-5 h-5 text-xl" />
+          <span className="text-xs font-semibold">{t('nav.map')}</span>
+        </button>
+
+        <button
+          type="button"
+          className={`flex-1 min-h-[var(--nav-height)] flex flex-col items-center justify-center gap-1 py-3 px-2 transition-all active:scale-95 cursor-pointer ${
+            activeScreen === 'settings'
+              ? 'text-brand'
+              : 'text-text-tertiary'
+          }`}
+          onClick={() => setActiveScreen('settings')}
+        >
+          <FontAwesomeIcon icon={faGear} className="w-5 h-5 text-xl" />
+          <span className="text-xs font-semibold">{t('nav.settings')}</span>
         </button>
       </nav>
     </div>
+  );
+}
+
+function App() {
+  return (
+    <LanguageProvider>
+      <AppContent />
+    </LanguageProvider>
   );
 }
 

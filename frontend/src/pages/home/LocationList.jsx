@@ -1,20 +1,31 @@
+import { useLanguage } from '../../context/LanguageContext.jsx';
+import { formatUpdatedTime } from '../../utils/air.js';
+
 const LEVEL_VALUE_COLORS = {
   good: 'text-good',
   moderate: 'text-moderate',
+  'unhealthy-sensitive': 'text-sensitive',
   unhealthy: 'text-unhealthy',
+  'very-unhealthy': 'text-very-unhealthy',
 };
 
 export function LocationList({ locations, selectedLocationId, onSelectLocation }) {
+  const { t, language } = useLanguage();
+
   return (
     <section className="mb-6" aria-label="Monitoring locations">
       <h2 className="mb-3.5 text-xl font-bold tracking-tight">
-        All Locations
+        {t('home.allLocations')}
       </h2>
 
       <div className="flex flex-col gap-2.5">
         {locations.map((location) => {
           const selected = location.id === selectedLocationId;
           const valueColorClass = LEVEL_VALUE_COLORS[location.level] || 'text-text-primary';
+          const statusDisplay = t(location.statusKey || `status.${location.level}`);
+          const updatedDisplay = location.createdAt
+            ? formatUpdatedTime(location.createdAt, language === 'th' ? 'th-TH' : 'en-GB')
+            : '-';
 
           return (
             <button
@@ -33,7 +44,7 @@ export function LocationList({ locations, selectedLocationId, onSelectLocation }
                   {location.name}
                 </h3>
                 <p className="text-[13px] text-text-tertiary">
-                  Updated {location.updated}
+                  {t('common.updated')} {updatedDisplay}
                 </p>
               </div>
 
@@ -42,7 +53,7 @@ export function LocationList({ locations, selectedLocationId, onSelectLocation }
                   {location.pm25}
                 </span>
                 <span className="mt-0.5 text-xs font-semibold text-text-secondary">
-                  {location.status}
+                  {statusDisplay}
                 </span>
               </div>
             </button>

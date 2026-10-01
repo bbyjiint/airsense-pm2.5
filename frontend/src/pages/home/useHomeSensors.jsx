@@ -27,14 +27,11 @@ export function useHomeSensors(pollingInterval = 5000) {
           locationName: reading.location_name,
           lat: Number(reading.latitude),
           lng: Number(reading.longitude),
-          aqi: Number(reading.pm25),
           pm25: Number(reading.pm25),
           temperature: Number(reading.temperature),
           humidity: Number(reading.humidity),
-          status: status.text,
-          statusThai: status.textThai,
           level: status.level,
-          updated: formatUpdatedTime(reading.created_at, 'en-GB'),
+          statusKey: status.statusKey,
           createdAt: reading.created_at,
         };
       });
